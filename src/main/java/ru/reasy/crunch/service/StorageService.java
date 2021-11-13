@@ -2,6 +2,8 @@ package ru.reasy.crunch.service;
 
 import org.springframework.stereotype.Component;
 import ru.reasy.crunch.dto.OrderBook;
+import ru.reasy.crunch.dto.OrderBookType;
+
 import static ru.reasy.crunch.utils.Tools.*;
 
 import java.security.NoSuchAlgorithmException;
@@ -23,5 +25,13 @@ public class StorageService {
             case ASK: storageAsk.put(getHash(ask.toString()), ask);break;
             case BID: storageBids.put(getHash(ask.toString()), ask);break;
         }
+    }
+
+    public Map<String, OrderBook> get(OrderBookType type){
+        switch (type){
+            case ASK: return storageAsk;
+            case BID: return storageBids;
+        }
+        return null;
     }
 }
