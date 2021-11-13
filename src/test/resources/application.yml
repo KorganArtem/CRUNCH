@@ -4,5 +4,5 @@ spring:
     spring.jpa.hibernate.ddl-auto: update
 crunch:
   api:
-    key:"UU6tYWP6kSKdHLYjCzB_75SzSSU4_72KP_MFXsyN"
+    key: "UU6tYWP6kSKdHLYjCzB_75SzSSU4_72KP_MFXsyN"
     secret: "jury-md0VzKNsBxJT6z6m6sG3_J1ofMc4jgdAzxK"
