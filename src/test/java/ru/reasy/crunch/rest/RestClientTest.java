@@ -12,11 +12,11 @@ import java.io.IOException;
 
 import static org.testng.Assert.*;
 
-@SpringBootTest(classes = RestAccountClient.class)
-public class RestAccountClientTest extends AbstractTestNGSpringContextTests {
+@SpringBootTest(classes = RestClient.class)
+public class RestClientTest extends AbstractTestNGSpringContextTests {
 
     @Autowired
-    private RestAccountClient accountClient;
+    private RestClient accountClient;
 
 
     @Test

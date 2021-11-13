@@ -17,7 +17,7 @@ import static ru.reasy.crunch.Constants.*;
 
 @Slf4j
 @Component
-public class RestAccountClient {
+public class RestClient {
 
     @Value("${crunch.api.key}")
     private String apiKey;

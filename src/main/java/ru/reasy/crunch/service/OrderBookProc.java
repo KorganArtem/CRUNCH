@@ -7,7 +7,7 @@ import ru.reasy.crunch.dto.GetOrderBookRs;
 import ru.reasy.crunch.dto.OrderBook;
 import ru.reasy.crunch.dto.OrderBookType;
 import ru.reasy.crunch.dto.OrderBooks;
-import ru.reasy.crunch.rest.RestAccountClient;
+import ru.reasy.crunch.rest.RestClient;
 import ru.reasy.crunch.utils.Convertor;
 
 import java.io.IOException;
@@ -22,10 +22,10 @@ import java.util.stream.Collectors;
 public class OrderBookProc {
 
     private final StorageService storageService;
-    private final RestAccountClient client;
+    private final RestClient client;
 
 
-    public OrderBookProc(StorageService storageService, RestAccountClient client) {
+    public OrderBookProc(StorageService storageService, RestClient client) {
         this.storageService = storageService;
         this.client = client;
     }

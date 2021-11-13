@@ -1,7 +1,3 @@
-spring:
-  jpa:
-    spring.jpa.database-platform: org.hibernate.dialect.H2Dialect
-    spring.jpa.hibernate.ddl-auto: update
 crunch:
   api:
     key: "UU6tYWP6kSKdHLYjCzB_75SzSSU4_72KP_MFXsyN"

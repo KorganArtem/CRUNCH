@@ -4,15 +4,15 @@ import org.springframework.stereotype.Component;
 import ru.reasy.crunch.dto.OrderBook;
 import ru.reasy.crunch.dto.OrderBookType;
 
-import static ru.reasy.crunch.utils.Tools.*;
-import static ru.reasy.crunch.utils.Tools.getHash;
-
 import java.security.NoSuchAlgorithmException;
-import java.util.*;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
-import java.util.function.Function;
 import java.util.stream.Collectors;
+
+import static ru.reasy.crunch.utils.Tools.getHash;
 
 @Component
 public class StorageService {
@@ -28,7 +28,7 @@ public class StorageService {
         switch (ask.getType()){
             case ASK: {
                 storageAsk.putIfAbsent(getHash(ask.toString()), ask);
-                sortAndCutBits();
+                sortAndCutAsks();
                 break;
             }
             case BID: {
@@ -57,9 +57,33 @@ public class StorageService {
                     .collect(Collectors.toList());
             ConcurrentMap<String, OrderBook> newMap = new ConcurrentHashMap<>();
             for (OrderBook orderbook : list) {
+                if(newMap.size()>=10)
+                    break;
                 newMap.put(getHash(orderbook.toString()), orderbook);
             }
             storageBids = newMap;
         }
+    }
+
+    private void sortAndCutAsks() throws NoSuchAlgorithmException {
+        if(storageAsk.size()>10) {
+            List<OrderBook> list = storageAsk
+                    .values()
+                    .parallelStream()
+                    .sorted(Comparator.comparing(OrderBook::getPrice))
+                    .collect(Collectors.toList());
+            ConcurrentMap<String, OrderBook> newMap = new ConcurrentHashMap<>();
+            for (int ind = list.size();  ind > list.size()-10; ind--){
+                if(newMap.size()>=10)
+                    break;
+                OrderBook book = list.get(ind-1);
+                newMap.put(getHash(book.toString()), book);
+            }
+            storageAsk = newMap;
+        }
+    }
+
+    public void writeState(){
+        //TODO Сохранение состояния
     }
 }
